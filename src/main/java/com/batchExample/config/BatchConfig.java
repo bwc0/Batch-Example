@@ -8,6 +8,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -44,5 +45,13 @@ public class BatchConfig {
                 .start(stepOne())
                 .next(stepTwo())
                 .build();
+    }
+
+    @Bean
+    public JobLauncherTestUtils testUtils() {
+        JobLauncherTestUtils jobLauncherTestUtils = new JobLauncherTestUtils();
+        jobLauncherTestUtils.setJob(demoJob());
+
+        return jobLauncherTestUtils;
     }
 }
